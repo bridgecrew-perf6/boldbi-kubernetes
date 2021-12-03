@@ -460,8 +460,11 @@ spec:
     {{- if .Values.loadBalancer.multipleHost }}
     - http:
     {{- else }}
+    {{- if eq .Values.isIpAddress "false" }}
     - host: {{ (split "/" .Values.appBaseUrl)._2 }}
-      http:
+    {{- else }}
+    {{- end }}
+    - http:
     {{- end }}
         paths:
           - path: /
